@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Real Estate | Buy, Sell & Rent | Filstar",
+  title: "Filstar | Real Estate | Buy, Sell & Rent",
   description: "Discover the best property listings in Laguna. Whether you’re looking to buy, sell, or rent, Filstar makes finding your dream home easy. Start searching today!",
 };
 
