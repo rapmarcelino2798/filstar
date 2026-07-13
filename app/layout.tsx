@@ -4,6 +4,7 @@ import "./globals.css";
 import MainHeader from "@/components/main-header/main-header";
 import { Inter } from 'next/font/google';
 import MainFooter from "@/components/main-footer/main-footer";
+import type { Viewport } from 'next';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,6 +25,12 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Filstar | Real Estate | Buy, Sell & Documentation Service",
   description: "Explore prime properties across NCR, Laguna, Cavite, Batangas, Rizal, and Bulacan.",
+};
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  viewportFit: 'cover', // <-- Adds viewport-fit=cover to the meta tag
 };
 
 export default function RootLayout({
