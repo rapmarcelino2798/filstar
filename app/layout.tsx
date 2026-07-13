@@ -50,7 +50,7 @@ export default function RootLayout({
         <MainHeader />
         
         {/* This inner container takes the remaining height and handles the scrolling content */}
-        <div className="flex flex-col flex-1 w-full overflow-y-auto">
+        <div className="flex flex-col flex-1 w-full overflow-y-auto overscroll-y-none">
           <div className="flex flex-col flex-1 w-full">
             {children}
           </div>
