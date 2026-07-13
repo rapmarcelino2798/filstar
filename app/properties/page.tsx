@@ -7,6 +7,7 @@ interface Property {
   price: string;
   status: 'For Sale' | 'For Rent';
   imageUrl: string;
+  href: string;
 }
 
 export const propertiesData: Property[] = [
@@ -17,6 +18,7 @@ export const propertiesData: Property[] = [
     price: '$450,000',
     status: 'For Sale',
     imageUrl: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80',
+    href: "/properties/details"
   },
   {
     id: '2',
@@ -25,6 +27,7 @@ export const propertiesData: Property[] = [
     price: '$820,000',
     status: 'For Sale',
     imageUrl: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80',
+    href: "/properties/details"
   },
   {
     id: '3',
@@ -33,6 +36,7 @@ export const propertiesData: Property[] = [
     price: '$210,000',
     status: 'For Rent',
     imageUrl: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',
+    href: "/properties/details"
   },
 ];
 
