@@ -12,16 +12,19 @@ const servicesList = [
     icon: <Home className="w-6 h-6" />,
     title: "Buy a Property",
     description: "Browse curated homes perfectly suited to your lifestyle. We'll guide you through every step.",
+    href: "/buy"
   },
   {
     icon: <Building2 className="w-6 h-6" />,
     title: "Sell Your Property",
     description: "Get maximum value for your real estate with our expert market analysis and trusted network.",
+    href: "/services/sell"
   },
   {
     icon: <FileText className="w-6 h-6" />,
     title: "Documentation Service",
     description: "Hassle-free title transfers, legal paperwork, and secure transaction processing handled by pros.",
+    href: "/documentation"
   },
 ];
 
@@ -43,10 +46,11 @@ export default function ServicePage() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl w-full place-items-center md:place-items-stretch">
                 {servicesList.map((service, index) => (
                     <ServiceCard 
-                        key={index}
-                        icon={service.icon}
-                        title={service.title}
-                        description={service.description}
+                      key={index}
+                      icon={service.icon}
+                      title={service.title}
+                      description={service.description}
+                      href={service.href}
                     />
                 ))}
             </div>
