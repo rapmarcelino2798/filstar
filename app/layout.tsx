@@ -23,8 +23,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Filstar | Real Estate | Buy, Sell & Rent",
-  description: "Discover the best property listings in Laguna. Whether you’re looking to buy, sell, or rent, Filstar makes finding your dream home easy. Start searching today!",
+  title: "Filstar | Real Estate | Buy, Sell & Documentation Service",
+  description: "Explore prime properties across NCR, Laguna, Cavite, Batangas, Rizal, and Bulacan. Whether you want to buy, sell, or need expert documentation assistance, Filstar makes the journey seamless. Start your search now.",
 };
 
 export default function RootLayout({
