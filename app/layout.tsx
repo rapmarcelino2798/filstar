@@ -15,16 +15,15 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-// Initialize the font
 const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-inter', // Optional: if you want to use it with Tailwind
+  variable: '--font-inter',
 });
 
 export const metadata: Metadata = {
   title: "Filstar | Real Estate | Buy, Sell & Documentation Service",
-  description: "Explore prime properties across NCR, Laguna, Cavite, Batangas, Rizal, and Bulacan. Whether you want to buy, sell, or need expert documentation assistance, Filstar makes the journey seamless. Start your search now.",
+  description: "Explore prime properties across NCR, Laguna, Cavite, Batangas, Rizal, and Bulacan.",
 };
 
 export default function RootLayout({
@@ -37,13 +36,20 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="w-full min-h-screen flex flex-col bg-[#111318] text-white overflow-x-hidden">
+      {/* h-full and overflow-hidden lock the outer window frame */}
+      <body className="w-full h-screen flex flex-col bg-[#111318] text-white overflow-hidden m-0 p-0">
+        
+        {/* Navigation Bar stays fixed at the top */}
         <MainHeader />
-        {/* flex-1 makes sure this grows to fill space, keeping the footer at the bottom */}
-        <div className="flex flex-col flex-1 w-full">
-          {children}
+        
+        {/* This inner container takes the remaining height and handles the scrolling content */}
+        <div className="flex flex-col flex-1 w-full overflow-y-auto">
+          <div className="flex flex-col flex-1 w-full">
+            {children}
+          </div>
+          <MainFooter />
         </div>
-        <MainFooter />
+
       </body>
     </html>
   );
