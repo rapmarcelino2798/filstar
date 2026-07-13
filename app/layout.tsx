@@ -41,7 +41,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased overscroll-y-none`}
     >
       {/* h-full and overflow-hidden lock the outer window frame */}
       <body className="w-full h-screen flex flex-col bg-[#111318] text-white overflow-hidden m-0 p-0">
