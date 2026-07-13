@@ -37,11 +37,12 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className={`${inter.className} w-full min-h-screen flex flex-col m-0 p-0 overflow-x-hidden bg-[#111318]`}>
+      <body className="w-full min-h-screen flex flex-col bg-[#111318] text-white overflow-x-hidden">
         <MainHeader />
-        <main className="flex flex-1 flex-col w-full">
+        {/* flex-1 makes sure this grows to fill space, keeping the footer at the bottom */}
+        <div className="flex flex-col flex-1 w-full">
           {children}
-        </main>
+        </div>
         <MainFooter />
       </body>
     </html>
