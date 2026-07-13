@@ -1,6 +1,6 @@
 import UnderConstruction from "@/components/UnderConstruction";
 
-export default function HomePage() {
+export default function AboutPage() {
     return (
         <>
             <UnderConstruction />

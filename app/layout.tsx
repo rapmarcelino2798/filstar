@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import MainHeader from "@/components/main-header/main-header";
+import { Inter } from 'next/font/google';
+import MainFooter from "@/components/main-footer/main-footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -10,6 +13,13 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+// Initialize the font
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-inter', // Optional: if you want to use it with Tailwind
 });
 
 export const metadata: Metadata = {
@@ -27,7 +37,13 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className={`${inter.className} w-full min-h-screen flex flex-col m-0 p-0 overflow-x-hidden bg-[#111318]`}>
+        <MainHeader />
+        <main className="flex flex-1 flex-col w-full">
+          {children}
+        </main>
+        <MainFooter />
+      </body>
     </html>
   );
 }

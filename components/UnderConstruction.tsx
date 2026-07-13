@@ -1,6 +1,6 @@
 export default function UnderConstruction() {
     return (
-        <div className="flex flex-col items-center justify-center min-h-[60vh] px-4 text-center">
+        <div className="flex-1 flex flex-col items-center justify-center px-4 text-center">
             <div className="mb-6 p-4 bg-yellow-500/10 rounded-full">
                 <svg 
                     className="w-12 h-12 text-yellow-500" 
