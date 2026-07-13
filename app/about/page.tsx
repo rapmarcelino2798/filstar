@@ -115,7 +115,7 @@ export default function AboutPage() {
           {/* Replace src with your founder image path if hosted in public folder */}
             <div className="relative w-44 h-44 sm:w-56 sm:h-56 shrink-0 rounded-full overflow-hidden border-4 border-[#c9a86a]/40 shadow-md">
                 <img 
-                    src="/founder.jpg" 
+                    src="/founder2.jpg" 
                     alt="Mr. Feliciano B. Tare" 
                     className="w-full h-full object-cover" 
                 />
