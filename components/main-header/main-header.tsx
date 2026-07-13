@@ -8,7 +8,7 @@ export default function MaiHeader() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 w-full max-w-full flex items-center justify-between px-6 md:px-10 h-20 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1)] bg-[#282c35] text-white">
+    <header className="sticky top-0 z-50 w-full max-w-full flex items-center justify-between px-6 md:px-10 h-20 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1)] bg-[#FAF8F4] text-[#21252E]">
       {/* Logo */}
       <Link href="/">
         <img src="/filstar-logo.png" alt="filstar-logo" width={80} height={80} />
@@ -30,7 +30,7 @@ export default function MaiHeader() {
       {/* Mobile Menu Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="md:hidden text-white focus:outline-none"
+        className="md:hidden text-[#21252E] focus:outline-none"
         aria-label="Toggle Menu"
       >
         {isOpen ? <X size={28} /> : <Menu size={28} />}
@@ -38,7 +38,7 @@ export default function MaiHeader() {
 
       {/* Mobile Dropdown Menu */}
       {isOpen && (
-        <div className="absolute top-full left-0 w-full bg-[#282c35] border-t border-white/10 shadow-2xl py-6 px-8 flex flex-col gap-5 md:hidden">
+        <div className="absolute top-full left-0 w-full bg-[#FAF8F4] border-t border-white/10 shadow-2xl py-6 px-8 flex flex-col gap-5 md:hidden">
           <Link
             href="/properties"
             onClick={() => setIsOpen(false)}
