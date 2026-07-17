@@ -12,7 +12,7 @@ const servicesList = [
     icon: <Home className="w-6 h-6" />,
     title: "Buy a Property",
     description: "Browse curated homes perfectly suited to your lifestyle. We'll guide you through every step.",
-    href: "/buy"
+    href: "/properties/all"
   },
   {
     icon: <Building2 className="w-6 h-6" />,
@@ -24,7 +24,7 @@ const servicesList = [
     icon: <FileText className="w-6 h-6" />,
     title: "Documentation Service",
     description: "Hassle-free title transfers, legal paperwork, and secure transaction processing handled by pros.",
-    href: "/documentation"
+    href: "/services/documentation"
   },
 ];
 

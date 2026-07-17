@@ -1,4 +1,5 @@
 import PropertyGrid from "@/components/property-grid/property-grid";
+import Link from "next/link";
 
 interface Property {
   id: string;
@@ -53,9 +54,9 @@ export default function PropertiesPage() {
                             Homes you'll love
                         </h2>
                     </div>
-                    <a href="#all-properties" className="text-sm font-medium text-[#C8A96A] hover:text-white flex items-center gap-1 transition-colors">
+                    <Link href="/properties/all" className="text-sm font-medium text-[#C8A96A] hover:text-white flex items-center gap-1 transition-colors">
                         View all properties &rarr;
-                    </a>
+                    </Link>
                 </div>
 
                 {/* Render Dynamic Component */}

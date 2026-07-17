@@ -1,118 +1,253 @@
 'use client';
-import { useState } from 'react';
+
+import React, { useState } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 
-export default function SellPropertyPage() {
-  const [submitting, setSubmitting] = useState(false);
-  const [success, setSuccess] = useState(false);
+export default function SellYourPropertyPage() {
+  const [step, setStep] = useState(1);
+  const [formData, setFormData] = useState({
+    propertyType: 'Residential House',
+    address: '',
+    city: '',
+    size: '',
+    fullName: '',
+    email: '',
+    phone: '',
+    date: '18',
+    timeSlot: 'morning',
+    communicationMethod: 'Phone Call',
+  });
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitting(true);
-    // Simulate API request for submission
-    setTimeout(() => {
-      setSubmitting(false);
-      setSuccess(true);
-    }, 1000);
+    alert('Property valuation appointment booked successfully!');
   };
 
   return (
-    <div className="min-h-[100dvh] flex flex-col bg-[#fafaf9] text-gray-800 overscroll-y-none">
-      {/* Main Form Content */}
-      <main className="flex-grow py-12 px-6 sm:px-8 max-w-4xl mx-auto w-full">
+    <div className="min-h-screen bg-[#FBF9F5] text-stone-800 flex flex-col justify-between font-sans">
+      {/* Main Content Area */}
+      <main className="flex-grow flex flex-col items-center justify-center px-4 py-8">
+        
+        {/* Page Titles matching reference */}
         <div className="text-center mb-10">
-          <span className="text-xs uppercase tracking-widest text-[#b45309] font-semibold">Listing Submission</span>
-          <h1 className="text-4xl font-serif font-normal mt-2 tracking-tight text-gray-900">Sell Your Property</h1>
-          <p className="text-gray-500 mt-2 max-w-lg mx-auto text-sm">
-            Provide the required documentation and details below. Our team will review your submission before publishing it live.
-          </p>
+          <span className="text-xs uppercase tracking-widest text-[#C5A880] font-semibold block mb-2">
+            Sell Your Property
+          </span>
+          <h1 className="text-4xl md:text-5xl font-serif text-stone-900">
+            Book a Property Valuation
+          </h1>
         </div>
 
-        {success ? (
-          <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 text-center space-y-4">
-            <h3 className="text-2xl font-serif text-teal-900">Submission Received!</h3>
-            <p className="text-gray-600 text-sm">Your property documents are now pending admin approval.</p>
-            <Link href="/" className="inline-block bg-[#134e4a] text-white py-2 px-6 rounded-xl text-sm font-medium hover:bg-teal-900 transition-colors">
-              Return Home
-            </Link>
-          </div>
-        ) : (
-          <form onSubmit={handleSubmit} className="bg-white p-8 sm:p-10 rounded-2xl shadow-sm border border-gray-100 space-y-8">
-            {/* Section 1: Property Info */}
-            <div className="space-y-4">
-              <h2 className="text-xl font-serif font-semibold text-gray-900 border-b pb-3">Property Financials & Location</h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-xs uppercase tracking-wider font-semibold text-gray-600 mb-2">
-                    Selling Price (Inclusive of Taxes & Broker's Fee)
-                  </label>
-                  <input 
-                    type="text" 
-                    placeholder="₱ 0.00" 
-                    className="w-full p-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-teal-700 text-sm bg-gray-50/50" 
-                    required 
-                  />
-                </div>
-                <div>
-                  <label className="block text-xs uppercase tracking-wider font-semibold text-gray-600 mb-2">
-                    TIN Number
-                  </label>
-                  <input 
-                    type="text" 
-                    placeholder="000-000-000-000" 
-                    className="w-full p-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-teal-700 text-sm bg-gray-50/50" 
-                    required 
-                  />
-                </div>
-              </div>
-              <div>
-                <label className="block text-xs uppercase tracking-wider font-semibold text-gray-600 mb-2">
-                  Location Map, Vicinity Map, or Google Maps Pin URL
-                </label>
-                <input 
-                  type="text" 
-                  placeholder="Paste map link or pin coordinates" 
-                  className="w-full p-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-teal-700 text-sm bg-gray-50/50" 
-                  required 
-                />
-              </div>
-            </div>
-
-            {/* Section 2: Requirements Upload */}
-            <div className="space-y-6">
-              <h2 className="text-xl font-serif font-semibold text-gray-900 border-b pb-3">Required Documents & Verification</h2>
+        {/* Form Container Grid matching reference card layout */}
+        <div className="w-full max-w-5xl grid grid-cols-1 lg:grid-cols-3 gap-8">
+          
+          {/* Left/Middle Booking Form Card (Spans 2 columns) */}
+          <div className="lg:col-span-2 bg-white rounded-3xl p-8 shadow-xl shadow-stone-200/50 border border-stone-100">
+            <form onSubmit={handleSubmit} className="space-y-6">
               
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <FileUploadField label="Transfer Certificate of Title (TCT) & Tax Dec" />
-                <FileUploadField label="Clean Title Proof / Map Pin Detail" />
-                <FileUploadField label="Authority to Sell & Site Inspection Auth" />
-                <FileUploadField label="Clear Copy of Valid Government ID" />
+              {/* Step 1: Property Details */}
+              <div>
+                <h3 className="text-sm font-semibold text-stone-900 uppercase tracking-wide mb-4">
+                  Step 1: Property Details
+                </h3>
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-xs font-medium text-stone-500 mb-1">Property Type</label>
+                    <select
+                      name="propertyType"
+                      value={formData.propertyType}
+                      onChange={handleChange}
+                      className="w-full px-4 py-2.5 rounded-xl border border-stone-200 bg-stone-50/50 text-sm focus:outline-none focus:ring-2 focus:ring-[#C5A880]"
+                    >
+                      <option value="Residential House">Residential House</option>
+                      <option value="Condominium">Condominium</option>
+                      <option value="Commercial Lot">Commercial Lot</option>
+                      <option value="Townhouse">Townhouse</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-medium text-stone-500 mb-1">Address</label>
+                    <input
+                      type="text"
+                      name="address"
+                      placeholder="Enter street address"
+                      value={formData.address}
+                      onChange={handleChange}
+                      className="w-full px-4 py-2.5 rounded-xl border border-stone-200 bg-stone-50/50 text-sm focus:outline-none focus:ring-2 focus:ring-[#C5A880]"
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-xs font-medium text-stone-500 mb-1">City</label>
+                      <input
+                        type="text"
+                        name="city"
+                        placeholder="City"
+                        value={formData.city}
+                        onChange={handleChange}
+                        className="w-full px-4 py-2.5 rounded-xl border border-stone-200 bg-stone-50/50 text-sm focus:outline-none focus:ring-2 focus:ring-[#C5A880]"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-medium text-stone-500 mb-1">Estimated Size (sqft)</label>
+                      <input
+                        type="number"
+                        name="size"
+                        placeholder="e.g. 1200"
+                        value={formData.size}
+                        onChange={handleChange}
+                        className="w-full px-4 py-2.5 rounded-xl border border-stone-200 bg-stone-50/50 text-sm focus:outline-none focus:ring-2 focus:ring-[#C5A880]"
+                      />
+                    </div>
+                  </div>
+                </div>
               </div>
+
+              {/* Step 2: Contact Information */}
+              <div className="pt-4 border-t border-stone-100">
+                <h3 className="text-sm font-semibold text-stone-900 uppercase tracking-wide mb-4">
+                  Step 2: Contact Information
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="md:col-span-2">
+                    <label className="block text-xs font-medium text-stone-500 mb-1">Full Name</label>
+                    <input
+                      type="text"
+                      name="fullName"
+                      placeholder="John Doe"
+                      value={formData.fullName}
+                      onChange={handleChange}
+                      className="w-full px-4 py-2.5 rounded-xl border border-stone-200 bg-stone-50/50 text-sm focus:outline-none focus:ring-2 focus:ring-[#C5A880]"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-medium text-stone-500 mb-1">Email Address</label>
+                    <input
+                      type="email"
+                      name="email"
+                      placeholder="john@example.com"
+                      value={formData.email}
+                      onChange={handleChange}
+                      className="w-full px-4 py-2.5 rounded-xl border border-stone-200 bg-stone-50/50 text-sm focus:outline-none focus:ring-2 focus:ring-[#C5A880]"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-medium text-stone-500 mb-1">Phone Number</label>
+                    <input
+                      type="tel"
+                      name="phone"
+                      placeholder="+63 900 000 0000"
+                      value={formData.phone}
+                      onChange={handleChange}
+                      className="w-full px-4 py-2.5 rounded-xl border border-stone-200 bg-stone-50/50 text-sm focus:outline-none focus:ring-2 focus:ring-[#C5A880]"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Step 3: Schedule Selection Simulation */}
+              <div className="pt-4 border-t border-stone-100">
+                <h3 className="text-sm font-semibold text-stone-900 uppercase tracking-wide mb-3">
+                  Step 3: Schedule Appointment Date & Time
+                </h3>
+                
+                {/* Visual Mini Calendar Mock */}
+                <div className="bg-stone-50 border border-stone-200/80 rounded-2xl p-4 text-center">
+                  <div className="grid grid-cols-7 gap-1 text-xs text-stone-500 font-medium mb-2">
+                    <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+                  </div>
+                  <div className="grid grid-cols-7 gap-1 text-xs font-semibold text-stone-700">
+                    <span className="py-2 text-stone-300">29</span>
+                    <span className="py-2">1</span>
+                    <span className="py-2">2</span>
+                    <span className="py-2">3</span>
+                    <span className="py-2">4</span>
+                    <span className="py-2">5</span>
+                    <span className="py-2">6</span>
+                    <span className="py-2">7</span>
+                    <span className="py-2">8</span>
+                    <span className="py-2">9</span>
+                    <span className="py-2">10</span>
+                    <span className="py-2 bg-[#C5A880] text-white rounded-lg shadow-sm">11</span>
+                    <span className="py-2">12</span>
+                    <span className="py-2">13</span>
+                  </div>
+                </div>
+
+                {/* Time slot selectors */}
+                <div className="flex gap-3 mt-4">
+                  {['morning', 'afternoon', 'evening'].map((slot) => (
+                    <button
+                      type="button"
+                      key={slot}
+                      onClick={() => setFormData({ ...formData, timeSlot: slot })}
+                      className={`flex-1 py-2 text-xs font-medium rounded-xl border capitalize transition ${
+                        formData.timeSlot === slot
+                          ? 'bg-[#C5A880] text-white border-[#C5A880]'
+                          : 'bg-white text-stone-600 border-stone-200 hover:bg-stone-50'
+                      }`}
+                    >
+                      {slot}
+                    </button>
+                  ))}
+                </div>
+
+                {/* Communication method */}
+                <div className="mt-4">
+                  <label className="block text-xs font-medium text-stone-500 mb-1">Preferred Communication Method</label>
+                  <select
+                    name="communicationMethod"
+                    value={formData.communicationMethod}
+                    onChange={handleChange}
+                    className="w-full px-4 py-2.5 rounded-xl border border-stone-200 bg-stone-50/50 text-sm focus:outline-none focus:ring-2 focus:ring-[#C5A880]"
+                  >
+                    <option value="Phone Call">Phone Call</option>
+                    <option value="Email">Email</option>
+                    <option value="In-Person">In-Person Meeting</option>
+                  </select>
+                </div>
+              </div>
+
+              {/* Submit CTA Button matching the design's gold gradient button */}
+              <button
+                type="submit"
+                className="w-full py-3.5 px-6 rounded-xl text-white font-medium bg-gradient-to-r from-[#D4B886] to-[#B39363] hover:opacity-95 shadow-lg shadow-[#C5A880]/20 transition"
+              >
+                Confirm Appointment
+              </button>
+
+            </form>
+          </div>
+
+          {/* Right Info Card matching layout */}
+          <div className="bg-white rounded-3xl p-8 shadow-xl shadow-stone-200/50 border border-stone-100 flex flex-col justify-between h-fit">
+            <div className="space-y-4">
+              <div className="w-8 h-8 rounded-lg bg-[#FBF9F5] border border-stone-200 flex items-center justify-center text-[#C5A880]">
+                📄
+              </div>
+              <h4 className="font-serif text-lg text-stone-900">Why choose FILSTAR?</h4>
+              <p className="text-xs text-stone-600 leading-relaxed">
+                Get maximum value for your real estate with our expert market analysis and trusted network. Hassle-free process from start to finish.
+              </p>
             </div>
+            
+            <div className="mt-8 pt-6 border-t border-stone-100">
+              <p className="text-[11px] text-stone-400">
+                Need immediate assistance? Feel free to call our main broker desk directly during standard business hours.
+              </p>
+            </div>
+          </div>
 
-            <button 
-              type="submit" 
-              disabled={submitting}
-              className="w-full bg-[#134e4a] text-white py-4 rounded-xl font-medium tracking-wide hover:bg-teal-900 transition-colors shadow-sm disabled:opacity-50"
-            >
-              {submitting ? 'Submitting...' : 'Submit Property for Approval'}
-            </button>
-          </form>
-        )}
+        </div>
+
       </main>
-    </div>
-  );
-}
-
-function FileUploadField({ label }: { label: string }) {
-  return (
-    <div className="p-4 rounded-xl border border-dashed border-gray-300 bg-gray-50/30 flex flex-col justify-between">
-      <label className="block text-xs font-semibold text-gray-700 mb-2">{label}</label>
-      <input 
-        type="file" 
-        className="text-xs text-gray-500 file:mr-3 file:py-2 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-teal-50 file:text-teal-900 hover:file:bg-teal-100 cursor-pointer" 
-        required 
-      />
     </div>
   );
 }
