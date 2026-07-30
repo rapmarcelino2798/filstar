@@ -1,5 +1,6 @@
 import PropertyGrid from "@/components/property-grid/property-grid";
 import Link from "next/link";
+import { createClient } from '@/utils/supabase/server'
 
 interface Property {
   id: string;
@@ -11,37 +12,19 @@ interface Property {
   href: string;
 }
 
-export const propertiesData: Property[] = [
-  {
-    id: '1',
-    title: 'Modern 3BR Condo',
-    location: 'Laguna Technopark, Laguna',
-    price: '$450,000',
-    status: 'For Sale',
-    imageUrl: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80',
-    href: "/properties/details"
-  },
-  {
-    id: '2',
-    title: 'Luxury Suburban',
-    location: 'Nuvali, Sta. Rosa, Laguna',
-    price: '$820,000',
-    status: 'For Sale',
-    imageUrl: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80',
-    href: "/properties/details"
-  },
-  {
-    id: '3',
-    title: 'Minimalist Studio',
-    location: 'Alabang, Metro Manila',
-    price: '$210,000',
-    status: 'For Rent',
-    imageUrl: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',
-    href: "/properties/details"
-  },
-];
+export default async function PropertiesPage() {
+    const supabase = await createClient()
+    const { data: properties, error } = await supabase.from('Properties').select<string, Property>()
+    
+    if (error) {
+        console.error("Supabase Error:", error)
+    }
 
-export default function PropertiesPage() {
+    console.log("properties", properties)
+
+    const propertiesData = properties ?? [];
+    console.log("propertiesData:", propertiesData)
+
     return (
         <div className="w-full flex-1 flex flex-col justify-center bg-[#FAF8F4] text-black py-16 px-6 md:px-12 font-sans">
             <div className="max-w-7xl mx-auto">
