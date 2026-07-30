@@ -2,13 +2,22 @@ import { formatPrice } from "@/utils/formatPrice";
 import Link from "next/link";
 
 interface Property {
-  id: string;
-  title: string;
-  location: string;
-  price: string;
-  status: 'For Sale' | 'For Rent';
-  image: string[]; // Updated to string[] assuming multiple images, or change back to string if single
-  href: string;
+  id: number,
+  created_at: any,
+  title: string,
+  price: number,
+  type: string,
+  status: string,
+  image: string[],
+  contact_information: {
+    full_name: string,
+    email: string,
+    phone: string
+  },
+  address: string,
+  city: string,
+  lat: number,
+  lng: number
 }
 
 interface PropertyGridProps {
@@ -52,7 +61,7 @@ export default function PropertyGrid({ properties }: PropertyGridProps) {
                 >
                   <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
                 </svg>
-                <span className="truncate">{property.location.toUpperCase()}</span>
+                <span className="truncate">{property.city.toUpperCase()}</span>
               </p>
             </div>
 

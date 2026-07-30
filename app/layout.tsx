@@ -5,6 +5,7 @@ import MainHeader from "@/components/main-header/main-header";
 import { Inter } from 'next/font/google';
 import MainFooter from "@/components/main-footer/main-footer";
 import type { Viewport } from 'next';
+import 'leaflet/dist/leaflet.css';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

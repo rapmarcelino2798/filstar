@@ -1,6 +1,20 @@
 // src/data/posts.ts
 import { createClient } from '@/utils/supabase/server'
 
+interface PropertyFormData {
+  propertyType: string;
+  price: number;
+  title: string;
+  address: string;
+  city: string;
+  images: File[];
+  lat: number;
+  lng: number;
+  fullName: string;
+  email: string;
+  phone: string;
+}
+
 // Fetch all posts
 export async function getProperties() {
   const supabase = await createClient();
@@ -34,4 +48,17 @@ export async function getPropertiesById(id: string) {
   }
 
   return data;
+}
+
+export async function addProperty(formData: PropertyFormData) {
+  const supabase = await createClient()
+
+  console.log(formData);
+
+  // Insert a single row into the 'todos' table
+ 
+
+  // Refresh the page cache to show updated data
+  // revalidatePath('/todos')
+  return { success: true }
 }
