@@ -1,29 +1,9 @@
 import PropertyGrid from "@/components/property-grid/property-grid";
+import { getProperties } from "@/src/data/properties";
 import Link from "next/link";
-import { createClient } from '@/utils/supabase/server'
-
-interface Property {
-  id: string;
-  title: string;
-  location: string;
-  price: string;
-  status: 'For Sale' | 'For Rent';
-  image: string;
-  href: string;
-}
 
 export default async function PropertiesPage() {
-    const supabase = await createClient()
-    const { data: properties, error } = await supabase.from('Properties').select<string, Property>()
-    
-    if (error) {
-        console.error("Supabase Error:", error)
-    }
-
-    console.log("properties", properties)
-
-    const propertiesData = properties ?? [];
-    console.log("propertiesData:", propertiesData)
+    const properties = await getProperties();
 
     return (
         <div className="w-full flex-1 flex flex-col justify-center bg-[#FAF8F4] text-black py-16 px-6 md:px-12 font-sans">
@@ -43,7 +23,7 @@ export default async function PropertiesPage() {
                 </div>
 
                 {/* Render Dynamic Component */}
-                <PropertyGrid properties={propertiesData} />
+                <PropertyGrid properties={properties} />
             </div>
         </div>
     )
