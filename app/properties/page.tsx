@@ -8,7 +8,7 @@ interface Property {
   location: string;
   price: string;
   status: 'For Sale' | 'For Rent';
-  imageUrl: string;
+  image: string;
   href: string;
 }
 
