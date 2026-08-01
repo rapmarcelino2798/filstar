@@ -8,7 +8,7 @@ interface Property {
   price: number,
   type: string,
   status: string,
-  image: string[],
+  images: string[],
   contact_information: {
     full_name: string,
     email: string,
@@ -35,7 +35,7 @@ export default function PropertyGrid({ properties }: PropertyGridProps) {
             className="relative rounded-2xl overflow-hidden mb-4 aspect-[4/3] bg-neutral-800 block cursor-pointer group no-underline shrink-0"
           >
             <img
-              src={property.image[0]}
+              src={property.images[0]}
               alt={property.title}
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             />

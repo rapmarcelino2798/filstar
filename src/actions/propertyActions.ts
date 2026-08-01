@@ -31,17 +31,17 @@ export async function saveProperty(formData: any) {
         type: formData.propertyType,
         price: Number(formData.price),
         title: formData.title,
+        description: formData.description,
+        images: imageUrls, // Store the array of string URLs instead of File objects
         address: formData.address,
         city: formData.city,
-        lat: formData.lat,
-        lng: formData.lng,
-        image: imageUrls, // Store the array of string URLs instead of File objects
-        contact_information: {
-            full_name: formData.fullName,
-            email: formData.email,
-            phone: formData.phone,
-        },
-        status: 'For Approval'
+        province: formData.province,
+        sellerFirstName: formData.firstName,
+        sellerLastName: formData.lastName,
+        sellerEmail: formData.email,
+        sellerPhoneNumber: formData.phone,
+        isFeatured: false,
+        status: 'FOR_APPROVAL'
     };
 
     // 3. Insert into Supabase table

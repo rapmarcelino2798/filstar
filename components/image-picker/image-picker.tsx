@@ -7,12 +7,15 @@ interface ImagePickerProps {
         propertyType: string;
         price: number;
         title: string;
+        description: string;
         address: string;
         city: string;
+        province: string;
         images: File[];
         lat: number;
         lng: number;
-        fullName: string;
+        firstName: string;
+        lastName: string;
         email: string;
         phone: string;
     }>>
@@ -20,11 +23,17 @@ interface ImagePickerProps {
         propertyType: string;
         price: number;
         title: string;
+        description: string;
         address: string;
         city: string;
+        province: string;
         images: File[];
         lat: number;
         lng: number;
+        firstName: string;
+        lastName: string;
+        email: string;
+        phone: string;
     }
 }
 export default function ImagePicker(props: ImagePickerProps) {

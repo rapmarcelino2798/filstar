@@ -1,21 +1,27 @@
 'use client';
 
 import { useState } from "react";
+import dynamic from "next/dynamic";
 import ImagePicker from "../image-picker/image-picker";
-import MapPicker from "../map-picker/map-picker";
 import { saveProperty } from "@/src/actions/propertyActions";
+
+// Dynamically import Jodit Editor to prevent Server-Side Rendering (SSR) window errors in Next.js
+const JoditEditor = dynamic(() => import("jodit-react"), { ssr: false });
 
 export default function Form() {
     const [formData, setFormData] = useState({
         propertyType: 'Residential',
         price: 0,
         title: '',
+        description: '',
         address: '',
         city: '',
+        province: '',
         images: [] as File[],
         lat: 14.3167, 
         lng: 121.1167,
-        fullName: '',
+        firstName: '',
+        lastName: '',
         email: '',
         phone: ''
     });
@@ -34,9 +40,12 @@ export default function Form() {
         // 1. Check text/select fields for empty strings
         if (
             !formData.title.trim() ||
+            !formData.description.trim() ||
             !formData.address.trim() ||
             !formData.city.trim() ||
-            !formData.fullName.trim() ||
+            !formData.province.trim() ||
+            !formData.firstName.trim() ||
+            !formData.lastName.trim() ||
             !formData.email.trim() ||
             !formData.phone.trim()
         ) {
@@ -50,7 +59,14 @@ export default function Form() {
             return;
         }
 
-        // 3. Check if at least one image is uploaded
+        // 3. Validate phone number (Strictly 11 digits, e.g., 09123456789)
+        const phoneRegex = /^\d{11}$/;
+        if (!phoneRegex.test(formData.phone)) {
+            setError('Please enter a valid 11-digit phone number (e.g., 09123456789).');
+            return;
+        }
+
+        // 4. Check if at least one image is uploaded
         if (formData.images.length === 0) {
             setError('Please upload at least one property image.');
             return;
@@ -58,7 +74,6 @@ export default function Form() {
 
         try {
             setLoading(true);
-            // Call the Server Action
             await saveProperty(formData);
             alert('Property valuation appointment and images uploaded successfully!'); 
         } catch (err: any) {
@@ -105,13 +120,16 @@ export default function Form() {
 
                     <div>
                     <label className="block text-xs font-medium text-stone-500 mb-1">Selling Price</label>
-                    <input
-                        type="number"
-                        name="price"
-                        value={formData.price}
-                        onChange={handleChange}
-                        className="w-full px-4 py-2.5 rounded-xl border border-stone-200 bg-stone-50/50 text-sm focus:outline-none focus:ring-2 focus:ring-[#C5A880]"
-                    />
+                    <div className="relative flex items-center">
+                        <span className="absolute left-4 text-xs font-semibold text-stone-400">PHP</span>
+                        <input
+                            type="number"
+                            name="price"
+                            value={formData.price}
+                            onChange={handleChange}
+                            className="w-full pl-14 pr-4 py-2.5 rounded-xl border border-stone-200 bg-stone-50/50 text-sm focus:outline-none focus:ring-2 focus:ring-[#C5A880]"
+                        />
+                    </div>
                     </div>
 
                     <div>
@@ -119,19 +137,27 @@ export default function Form() {
                     <input
                         type="text"
                         name="title"
+                        placeholder="e.g., Modern 3-Bedroom House with Garage in Santa Rosa"
                         value={formData.title}
                         onChange={handleChange}
                         className="w-full px-4 py-2.5 rounded-xl border border-stone-200 bg-stone-50/50 text-sm focus:outline-none focus:ring-2 focus:ring-[#C5A880]"
                     />
                     </div>
 
-                    <ImagePicker 
-                        formData={formData}
-                        setFormData={setFormData}
-                    />
+                    {/* Rich Text Editor for Description */}
+                    <div>
+                        <label className="block text-xs font-medium text-stone-500 mb-1">Description</label>
+                        <div className="rounded-xl overflow-hidden border border-stone-200 bg-stone-50/50 text-sm">
+                            <JoditEditor
+                                value={formData.description}
+                                tabIndex={1} 
+                                onBlur={(newContent) => setFormData({ ...formData, description: newContent })}
+                                onChange={() => {}} 
+                            />
+                        </div>
+                    </div>
 
-                    {/* Leaflet Map Integration */}
-                    <MapPicker 
+                    <ImagePicker 
                         formData={formData}
                         setFormData={setFormData}
                     />
@@ -141,25 +167,36 @@ export default function Form() {
                     <input
                         type="text"
                         name="address"
-                        placeholder="Enter street address or pick from map"
+                        placeholder="Address"
                         value={formData.address}
                         onChange={handleChange}
                         className="w-full px-4 py-2.5 rounded-xl border border-stone-200 bg-stone-50/50 text-sm focus:outline-none focus:ring-2 focus:ring-[#C5A880]"
                     />
                     </div>
 
-                    <div>
-                    <div>
-                        <label className="block text-xs font-medium text-stone-500 mb-1">City</label>
-                        <input
-                        type="text"
-                        name="city"
-                        placeholder="City"
-                        value={formData.city}
-                        onChange={handleChange}
-                        className="w-full px-4 py-2.5 rounded-xl border border-stone-200 bg-stone-50/50 text-sm focus:outline-none focus:ring-2 focus:ring-[#C5A880]"
-                        />
-                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label className="block text-xs font-medium text-stone-500 mb-1">City</label>
+                            <input
+                                type="text"
+                                name="city"
+                                placeholder="City"
+                                value={formData.city}
+                                onChange={handleChange}
+                                className="w-full px-4 py-2.5 rounded-xl border border-stone-200 bg-stone-50/50 text-sm focus:outline-none focus:ring-2 focus:ring-[#C5A880]"
+                            />
+                        </div>
+                        <div>
+                            <label className="block text-xs font-medium text-stone-500 mb-1">Province</label>
+                            <input
+                                type="text"
+                                name="province"
+                                placeholder="Province"
+                                value={formData.province}
+                                onChange={handleChange}
+                                className="w-full px-4 py-2.5 rounded-xl border border-stone-200 bg-stone-50/50 text-sm focus:outline-none focus:ring-2 focus:ring-[#C5A880]"
+                            />
+                        </div>
                     </div>
                 </div>
                 </div>
@@ -170,16 +207,27 @@ export default function Form() {
                     Step 2: Contact Information
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="md:col-span-2">
-                    <label className="block text-xs font-medium text-stone-500 mb-1">Full Name</label>
-                    <input
-                        type="text"
-                        name="fullName"
-                        placeholder="John Doe"
-                        value={formData.fullName}
-                        onChange={handleChange}
-                        className="w-full px-4 py-2.5 rounded-xl border border-stone-200 bg-stone-50/50 text-sm focus:outline-none focus:ring-2 focus:ring-[#C5A880]"
-                    />
+                    <div>
+                        <label className="block text-xs font-medium text-stone-500 mb-1">First Name</label>
+                        <input
+                            type="text"
+                            name="firstName"
+                            placeholder="John"
+                            value={formData.firstName}
+                            onChange={handleChange}
+                            className="w-full px-4 py-2.5 rounded-xl border border-stone-200 bg-stone-50/50 text-sm focus:outline-none focus:ring-2 focus:ring-[#C5A880]"
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-xs font-medium text-stone-500 mb-1">Last Name</label>
+                        <input
+                            type="text"
+                            name="lastName"
+                            placeholder="Doe"
+                            value={formData.lastName}
+                            onChange={handleChange}
+                            className="w-full px-4 py-2.5 rounded-xl border border-stone-200 bg-stone-50/50 text-sm focus:outline-none focus:ring-2 focus:ring-[#C5A880]"
+                        />
                     </div>
                     <div>
                     <label className="block text-xs font-medium text-stone-500 mb-1">Email Address</label>
@@ -197,7 +245,8 @@ export default function Form() {
                     <input
                         type="tel"
                         name="phone"
-                        placeholder="+63 900 000 0000"
+                        maxLength={11}
+                        placeholder="09123456789"
                         value={formData.phone}
                         onChange={handleChange}
                         className="w-full px-4 py-2.5 rounded-xl border border-stone-200 bg-stone-50/50 text-sm focus:outline-none focus:ring-2 focus:ring-[#C5A880]"
