@@ -47,15 +47,11 @@ export default function RootLayout({
       {/* h-full and overflow-hidden lock the outer window frame */}
       <body className="w-full h-screen flex flex-col bg-[#111318] text-white overflow-hidden m-0 p-0">
         
-        {/* Navigation Bar stays fixed at the top */}
-        <MainHeader />
-        
         {/* This inner container takes the remaining height and handles the scrolling content */}
         <div className="flex flex-col flex-1 w-full overflow-y-auto overscroll-y-none">
           <div className="flex flex-col flex-1 w-full">
             {children}
           </div>
-          <MainFooter />
         </div>
 
       </body>

@@ -15,13 +15,14 @@ interface PropertyFormData {
   phone: string;
 }
 
-// Fetch all posts
 export async function getProperties() {
   const supabase = await createClient();
   
   const { data, error } = await supabase
     .from("Properties")
     .select("*")
+    .eq("status", "APPROVED")
+    .eq("isFeatured", true)
     .order("created_at", { ascending: false });
 
   if (error) {
